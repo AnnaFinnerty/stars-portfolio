@@ -7,7 +7,7 @@
 #banner{
     position: relative;
     margin-top: -100vh;
-    z-index: 100;
+    z-index: 1;
     height: 100vh;
     width:100vw;
     background-image:url('../images/banner.png');
@@ -18,11 +18,9 @@
 }
 
 #stars-container{
-    position: relative;
     width: 100vw;
     height: 100vh;
     margin-top: -100vh;
-    z-index: 100;
 }
 
 .comet{
@@ -38,11 +36,9 @@
 }
 
 #stars{
-    position: relative;
     width: 100vw;
     height: 100vh;
     margin-top: -100vh;
-    z-index: 100;
     background: url('../images/stars.png') 0 0 repeat;
     opacity: 0;
 }
@@ -86,24 +82,8 @@ nav{
     opacity: 0;
 }
 
-header{
-    width: 100vw;
-    height: 20vh;
-    position: fixed;
-    top: 0;
-    right: 0;
-    background-image: none;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
-
 footer{
     text-align: center;
-    width: 100vw;
-}
-
-/* svg styling */
-object{
     width: 100vw;
 }
 
@@ -122,11 +102,6 @@ article{
     width: 70vw;
 }
 
-img{
-    width: 100vw;
-    height: 100vh;
-}
-
 .links{
     margin-right: 10vw;
 }
@@ -135,7 +110,6 @@ img{
     margin: 5vh;
     display: inline-flex;
     flex-direction: column;
-    position: absolute;
     top:0;
     left: 40%;
     /* text-shadow: -1px 0 5px rgb(120, 191, 245), 0 1px 5px rgb(120, 191, 245), 1px 0 5px rgb(120, 191, 245), 0 -1px 5px rgb(120, 191, 245); */
@@ -150,12 +124,6 @@ img{
     right: 0;
     margin: 2vh;
     /* text-shadow: -1px 0 5px rgb(120, 191, 245), 0 1px 5px rgb(120, 191, 245), 1px 0 5px rgb(120, 191, 245), 0 -1px 5px rgb(120, 191, 245); */
-}
-
-
-
-.image-layers{
-    height: 100vh;
 }
 
 .nav-button{
