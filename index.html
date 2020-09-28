@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="initial-scale=0.66, user-scalable=no">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
@@ -24,48 +25,59 @@
             <a href="#contact">
                 <button class="nav-button">contact</button>
             </a>
-            <div class="links">
-                <a href="#">github</a>
-                <a href="#">linkedin</a>
-            </div>
+            <a href="https://github.com/AnnaFinnerty">
+                <button class="nav-button">github</button>
+            </a>
+            <a href="https://www.linkedin.com/in/annafinnerty/">
+                <button class="nav-button">linkedin</button>
+            </a>
             <div class="logo-small">
-                <h4 id="annie">annie</h4>
-                <h4 id="laurie">laurie</h4>
-                <h4 id="codes">codes</h4>
+                <a href="#background">
+                    <h4 id="annie">annie</h4>
+                    <h4 id="laurie">laurie</h4>
+                    <h4 id="codes">codes</h4>
+                </a>
             </div>
         </nav>
     <header>
-        <div class="logo">
-            <h1 id="annie">annie</h1>
-            <h1 id="laurie">laurie</h1>
-            <h1 id="codes">codes</h1>
-            <div class="background-button-container">
-                <a href="#skillset">
-                    <button class="background-button">skillset</button>
-                </a>
-                <a href="#projects">
-                    <button class="background-button">projects</button>
-                </a>
-                <a href="#about_me">
-                    <button class="background-button">about me</button>
-                </a>
-                <a href="#contact">
-                    <button class="background-button">contact</button>
-                </a>
-            </div>
-        </div>
         <div class="image-container">
             <div class="image-layers">
                 <div id="star-container">
                     <div id="stars"></div>
                 </div>
                 <div id="banner"></div>
+                <div class="logo-container">
+                    <div class="logo">
+                        <h1 id="annie">annie</h1>
+                        <h1 id="laurie">laurie</h1>
+                        <h1 id="codes">codes</h1>
+                    </div>
+                    <div class="background-button-container">
+                        <a href="#skillset">
+                            <button class="background-button">skillset</button>
+                        </a>
+                        <a href="#projects">
+                            <button class="background-button">projects</button>
+                        </a>
+                        <a href="#about_me">
+                            <button class="background-button">about me</button>
+                        </a>
+                        <a href="#contact">
+                            <button class="background-button">contact</button>
+                        </a>
+                    </div>
+                </div>
             </div>
             
         </div>
     </header>
     <main>
         <div class="intro"></div>
+        <h2>projects</h2>
+        <section id="projects">
+            <div id="project-browse-bar"></div>
+            <div id="project-container"></div>
+        </section>
         <h2>skillset</h2>
         <section id="skillset">
             <div class="inline">
@@ -73,11 +85,6 @@
                 <div id="skillset-container"></div>
             </div>
             
-        </section>
-        <h2>projects</h2>
-        <section id="projects">
-            <div id="project-browse-bar"></div>
-            <div id="project-container"></div>
         </section>
         <h2>about me</h2>
         <section id="about_me">
@@ -95,6 +102,8 @@
     <footer>
         copyright 2020 annie laurie finnert
     </footer>
+    <script src="js/projects/habit/description.js"></script>
+    <script src="js/projects/bartleby/description.js"></script>
     <script src="js/projects/agency/description.js"></script>
     <script src="js/projects/typewriter/description.js"></script>
     <script src="js/projects/higgins/description.js"></script>

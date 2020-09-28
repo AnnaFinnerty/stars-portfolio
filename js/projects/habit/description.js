@@ -1,4 +1,4 @@
-const description = {
+const habit = {
     name: "habit",
     stack: ['Express.js','Mongoose', 'MongoDB'],
     type: 'App',
@@ -9,4 +9,4 @@ const description = {
     description: 'Habit tracker app with RESTful routes',
     caseStudy: [],
     live: true,
-}s
+}

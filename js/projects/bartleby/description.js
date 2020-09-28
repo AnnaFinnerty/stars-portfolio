@@ -1,11 +1,11 @@
-const description = {
-    name: "CloudChaos",
-    stack: ['AWS CloudFormation','AWS Lambda', 'AWS SNS', 'cloud'],
-    type: 'Deployment Tool',
-    visibleKeywords:['frontend','backend'],
-    githubUrl: 'github.com/AnnaFinnerty/CloudChaos',
+const bartleby = {
+    name: "bartleby",
+    stack: ['Javascript','Greasemonkey','Tampermonkey'],
+    type: 'Productivity Tool',
+    visibleKeywords:['frontend'],
+    githubUrl: 'github.com/AnnaFinnerty/bartleby',
     src: ['./img/ColorWheel1.png'],
-    description: 'A CloudFormation macro/templating language that allows you to insert random events into deployment stacks for chaos architecturee testing, employee training, or challenging yourself in JSON or YAML.',
+    description: 'A copy/save tool that transfers between tabs in the same browser windows.',
     caseStudy: [],
     live: true,
 }

@@ -11,9 +11,11 @@ class App{
         this.projs = {
             "cloudchaos":cloudchaos,
             "higgins": higgins,
+            "bartleby": bartleby,
             "agency":agency,
             "typewriter":typewriter,
             "stylish":stylish,
+            "habit": habit,
             "citadels": citadels,
             "colorwheel": colorwheel,
             
@@ -31,6 +33,7 @@ class App{
         this.pageElements = {
             "nav": document.querySelector('nav'),
             "image_container": document.querySelector('.image-layers'),
+            "main": document.querySelector('main'),
             "background": document.querySelector('#background'),
             "banner": document.querySelector('#banner'),
             "stars": document.querySelector('#stars'),
@@ -84,7 +87,6 @@ class App{
             this.pageElements.nav.style.backgroundImage = "none";
             this.pageElements.nav.style.backgroundColor = "black"
         }
-        //console.log(scrollTop, window.innerHeight, window.innerHeight*.75)
     }
     loadImages(){
         const backgroundImage = this.buildEl("img",null,null,'background-fade-in','background');
@@ -101,6 +103,7 @@ class App{
         this.pageElements.banner.className = "banner-fade-in";
         this.pageElements.banner.display = "block";
         this.pageElements.stars.className = "banner-fade-in";
+        this.pageElements.main.style.display = "block";
         this.skyController();
         this.loadSkills();
         this.loadProjects();
@@ -112,9 +115,9 @@ class App{
             const p = this.projects[i];
             const imgSrc = "./js/projects/"+p+"/images/"+p+"1.png"
             console.log('loading: ' + p)
-            const el = this.buildEl("img", null, null, "project-icon");
+            const el = this.buildEl("div", null, null, "project-icon");
             el.data = i;
-            el.src = imgSrc;
+            el.style.backgroundImage = "url("+imgSrc+")";
             el.addEventListener("click", (e) => {
                 const icon = this.icons[this.currentProject];
                 icon.id = "";
@@ -144,10 +147,19 @@ class App{
         const mainImage = this.buildEl("img", imageContainer, null, "project-image-full");
         mainImage.src = "./js/projects/"+projectName+"/images/"+projectName+"1.png";
         const infoCol = this.buildEl("div",el,null,"column");
-        const next = this.buildEl("span", infoCol, "next");
+        const next = this.buildEl("h4", infoCol, "next>","next-button");
+        next.addEventListener("click",()=>{
+            if(this.currentProject < this.projects.length-1){
+                this.currentProject +=1
+            } else {
+                this.currentProject = 0;
+            }
+            this.openProject();
+        })
         const title = this.buildEl("h2", infoCol, projectData.name);
         if(projectData.url){
-            const url = this.buildEl("a",infoCol, "Live: " + projectData.url)
+            const span = this.buildEl("span",infoCol, "Live: ")
+            const url = this.buildEl("a",span,projectData.url)
             url.href = projectData.url
         }
         if(projectData.githubUrl){
