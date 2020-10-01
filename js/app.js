@@ -51,16 +51,15 @@ class App{
             this.followScroll()
         })
         this.welcome();
+        this.skyController();
     }
     skyController(){
-        setTimeout(()=>{
-            this.pageElements.stars.style.opacity = 1;
-            this.pageElements.stars.className = "spin";
-            new Comet(this.pageElements.banner,this.screenWidth,this.scrollHeight,this.screenWidth/2,100)
-            setInterval(()=>{
-                new Comet(this.pageElements.banner,this.screenWidth)
-            }, Math.floor(Math.random()*10000)+5000)
-        },6000)
+        this.pageElements.stars.style.opacity = 1;
+        this.pageElements.stars.className = "spin";
+        new Comet(this.pageElements.banner,this.screenWidth,this.scrollHeight,this.screenWidth/2,100)
+        setInterval(()=>{
+            new Comet(this.pageElements.banner,this.screenWidth)
+        }, Math.floor(Math.random()*10000)+5000)
     }
     welcome(){
         console.log("hi, welcome to my website!")
@@ -89,25 +88,34 @@ class App{
         }
     }
     loadImages(){
-        const backgroundImage = this.buildEl("img",null,null,'background-fade-in','background');
-        backgroundImage.src = "images/pexels-juan-733475.png";
+        this.pageElements.stars.className = "banner-fade-in";
+        this.skyController();
+        const backgroundImage = this.buildEl("img",null,null,null,'background');
+        backgroundImage.src = "images/background.png";
+        backgroundImage.style.opacity = "0%";
         backgroundImage.addEventListener('load',(e)=>{
             this.loaded();
         })
+        // setTimeout(()=>{
+        //     this.loaded();
+        // },3000)
         this.pageElements['background'] = backgroundImage;
         this.pageElements.image_container.prepend(backgroundImage)
     }
     loaded(){
         console.log('loaded')
-        this.pageElements.banner.backgroundImage = "url('../images/banner.png')"
-        this.pageElements.banner.className = "banner-fade-in";
-        this.pageElements.banner.display = "block";
-        this.pageElements.stars.className = "banner-fade-in";
-        this.pageElements.main.style.display = "block";
-        this.skyController();
-        this.loadSkills();
-        this.loadProjects();
-        this.loadAboutMe();
+        this.pageElements.background.className = "background-fade-in";
+        this.pageElements.background.display = "block";
+        setTimeout(()=>{
+            this.pageElements.banner.backgroundImage = "url('../images/banner.png')"
+            this.pageElements.banner.className = "banner-fade-in";
+            this.pageElements.banner.display = "block";
+            this.pageElements.main.style.display = "block";
+            this.loadSkills();
+            this.loadProjects();
+            this.loadAboutMe();
+        },1000)
+        
     }
     loadProjects(){
         console.log('loading projects')
