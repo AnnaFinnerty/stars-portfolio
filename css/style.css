@@ -1,9 +1,117 @@
+body{
+    background-color: black;
+    background-image: url('../images/stars.png');
+    color: whitesmoke;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    width: 100vw;
+}
+
+header, #image-layers,#image-container{
+    width: 100vw;
+    min-height: 100vh;
+    background: black;
+}
+
+main{
+    display: none;
+    background-image: url('../images/stars.png');
+    margin-top: -5vh;
+}
+
+/* main logo only */
+h1{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 7vw;
+    margin: 0;
+    text-align: right;
+}
+
+h2{
+    border-bottom: .5px solid whitesmoke;
+    padding-left: 3vh;
+    padding-bottom: 0;
+    font-size: 3vw;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h4{
+    margin: 0;
+    color: whitesmoke;
+}
+
+nav{
+    width: 100vw;
+    height: 12vh;
+    display: inline-flex;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    z-index: 100;
+}
+
+footer{
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    width: 100vw;
+    margin-top: 5vh;
+}
+
+section{
+    padding-top: 10vh;
+}
+
+#project-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+article{
+    margin: 0 auto;
+    padding: 3vh 7vw;
+    background: rgba(245,245,245,.95);
+    color: black;
+    border-radius: 2vw;
+    box-shadow: 0 0 10px dimgray inset;
+    width: 70vw;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(240, 87, 26);
+}
+a:visited { text-decoration: none; color:black; }
+a:hover { text-decoration: none; color:black; }
+a:focus { text-decoration: none; color:black; }
+a:hover, a:active { text-decoration: none; color:black }
+
+img{
+    box-shadow: 0 0 5px dimgray, inset 0 0 5px black;
+}
+
+.logo-container{
+    display: inline-flex;
+    width: 30vw;
+    flex-direction: column;
+    z-index: 100;
+    position: absolute;
+    justify-content: center;
+    top: 20vh;
+    left: 35vw;
+}
+
 .image-layers{
     background: black;
+    overflow: hidden;
 }
 
 #background{
     height: 100vh;
+    width:100vw;
     display: hidden;
 }
 
@@ -19,7 +127,6 @@
     height: 100vh;
     width:100vw;
     background-image:url('../images/banner.png');
-    /* background-attachment: fixed; */
     background-position: bottom;
     background-size: cover;
     opacity: 0;
@@ -40,7 +147,7 @@
     z-index: 100;
     background: url('../images/comet.png') 0 0 repeat;
     background-repeat: no-repeat;
-    transform:rotate(-15deg)
+    transform:rotate(-15deg);
 }
 
 #stars{
@@ -49,86 +156,6 @@
     margin-top: -100vh;
     background: url('../images/stars.png') 0 0 repeat;
     opacity: 0;
-}
-
-body{
-    background-color: black;
-    background-image: url('../images/stars.png');
-    color: whitesmoke;
-    margin: 0;
-    padding: 0;
-    overflow-x: hidden;
-    width: 100vw;
-}
-
-main{
-    display: none;
-    background: black;
-}
-
-/* main logo only */
-h1{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 10vh;
-    margin: 0;
-    text-align: right;
-}
-
-h2{
-    border-bottom: .5px solid whitesmoke;
-    padding-left: 3vh;
-    font-size: 5vh;
-}
-
-h4{
-    margin: 0;
-}
-
-nav{
-    width: 100vw;
-    height: 12vh;
-    display: inline-flex;
-    justify-content: space-between;
-    position: fixed;
-    top: 0;
-    left: 0;
-    opacity: 0;
-    z-index: 100;
-}
-
-footer{
-    text-align: center;
-    width: 100vw;
-}
-
-section{
-    min-height: 30vh;
-    padding: 3vw;
-}
-
-article{
-    margin: 0 auto;
-    padding: 7vw;
-    background: rgba(245,245,245,.95);
-    color: black;
-    border-radius: 2vw;
-    box-shadow: 0 0 10px dimgray inset;
-    width: 70vw;
-}
-
-a{
-    text-decoration: none;
-}
-
-.logo-container{
-    display: inline-flex;
-    width: 30vw;
-    flex-direction: column;
-    z-index: 100;
-    position: absolute;
-    justify-content: center;
-    top: 20vh;
-    left: 35vw;
 }
 
 .logo{
@@ -140,6 +167,7 @@ a{
     flex-direction: column;
     margin: 2vh;
     float: right;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 .nav-button{
@@ -147,13 +175,12 @@ a{
     border: none;
     color: #78bff5;
     font-size: 2vw;
-    border-left: 1px solid rgb(120, 191, 245);
     margin-top: 5vh;
 }
 
 .nav-button:hover{
     text-decoration: underline;
-    color: rgb(218, 234, 247);
+    color: rgb(240, 87, 26);
 }
 
 .background-button-container{
@@ -167,15 +194,17 @@ a{
 .background-button{
     margin: 2% 20%;
     width: 80%;
-    color: whitesmoke;
+    color:  rgb(120, 191, 245);
     background-color: rgba(120, 191, 245,.3);
     padding: 1vh;
     border-radius: .5vw;
-    border: 2px solid black;
+    border: 2px solid #053245;
+    font-size: 3vh;
+    box-shadow: 0 0 5px rgb(120, 191, 245) inset;
 }
 
 .background-button:hover{
-    color: rgb(120, 191, 245);
+    color: #053245;
     background-color: rgba(120, 191, 245,.6);
     border: 2px solid rgba(120, 191, 245,.8);
 }
@@ -186,15 +215,24 @@ a{
 
 #skillset-selector{
     border: .5px solid rgb(25, 25, 25);
-    width: 50vw;
+    width: 100vw;
     background-color: rgb(17, 17, 17);
     box-shadow: 5px 5px 20px black inset;
     display: inline-flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
 }
 
 .skillset-selector-button{
-
+    width: 80%;
+    color:  rgb(120, 191, 245);
+    background-color: rgba(120, 191, 245,.3);
+    padding: 1vh;
+    border-radius: .5vw;
+    border: 2px solid #053245;
+    font-size: 3vh;
+    box-shadow: 0 0 5px rgb(120, 191, 245) inset;
 }
 
 #skillset-container{
@@ -202,6 +240,7 @@ a{
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+    padding: 5vw;
 }
 
 .skill{
@@ -216,7 +255,8 @@ a{
 #project-browse-bar{
     display: inline-flex;
     overflow-x: scroll;
-    width: 93.5vw;
+    width: 94vw;
+    margin-left: 3vw;
     border: 2px solid whitesmoke;
     background-color: #053245;
 }
@@ -227,7 +267,7 @@ a{
     margin-right: 2vw;
     margin-top: 1vh;
     margin-bottom: 1.5vh;
-    border: .5px solid dimgray;
+    border: .5px solid black;
     border-radius: 2vw;
     background-size: cover;
 }
@@ -240,32 +280,35 @@ a{
 }
 
 #project-icon-selected{
-    background: radial-gradient(rgba(0,0,0,.4),rgba(0,0,0,.6) 40%,rgba(0,0,0,.8) 80%);
     width:11.1vw;
     height: 11.1vw;
-    border: .5px solid reds;
+    border: .5px solid rgb(240, 87, 26);
 }
 
 .project-icon-cover{
     width:11vw;
     height: 11vw;
-    background: radial-gradient(rgba(0,0,0,.1),rgba(0,0,0,.3) 40%,rgba(0,0,0,.5) 80%);
     border-radius: 2vw;
+    background: radial-gradient(rgba(0,0,0,.01),rgba(0,0,0,.1) 40%,rgba(0,0,0,.3) 80%);
+    box-shadow: 1px 1px 5px black inset;
     z-index: 1;
+    padding: 0;
+    margin:0;
+    border: none;
 }
 
 .project-icon-cover:hover{
     width:11vw;
     height: 11vw;
-    background: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,.1) 80%,rgba(0,0,0,.2) 100%);
+    background: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,.01) 80%,rgba(0,0,0,.2) 100%);
     border-radius: 2vw;
     z-index: 1;
 }
 
 .project-image-full{
     margin:2vw;
-    width: 20vw;
-    height: 20vw;
+    max-width: 30vw;
+    height: 100%;
     border-radius: 2vw;
     border: .5px solid dimgray;
 }
@@ -273,29 +316,21 @@ a{
 .project-full{
     display: inline-flex;
     justify-content: center;
-    margin-top: 2vh;
+    margin: 2vh auto;
     overflow-x: scroll;
     height: 45vh;
 }
-
-#project-container{
-    display: inline-flex;
-    overflow: scroll;
-    width: 90vw;
-}
-
-/* #project-inner-container{
-    width: 120vw;
-    margin-left: -20vw;
-    position: absolute;
-    top: 0;
-    left: -20vw;
-} */
-
 .next-button{
     width:100%;
     text-align: right;
     color: rgb(120, 191, 245);
+}
+
+.next-button:hover{
+    width:100%;
+    text-align: right;
+    color: rgb(240, 87, 26);
+    text-decoration: underline;
 }
 
 #headshot{

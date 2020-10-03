@@ -7,7 +7,6 @@ class App{
         this.scrollHeight = this.getDocHeight();
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
-        //this.projects = ["cloudchaos","higgins", "colorwheel", "citadels", "stylish","colorwheel", "citadels", "stylish","colorwheel", "citadels", "stylish"];
         this.projs = {
             "cloudchaos":cloudchaos,
             "higgins": higgins,
@@ -26,6 +25,8 @@ class App{
         this.currentProject = 0;
         this.currentSkillset = "all";
         this.skills = skills;
+        this.comet = null;
+        this.messageQueue = [];
         this.start();
     }
     start(){
@@ -54,14 +55,23 @@ class App{
         this.skyController();
     }
     skyController(){
+        this.pageElements.stars.className = "banner-fade-in";
         this.pageElements.stars.style.opacity = 1;
         this.pageElements.stars.className = "spin";
-        new Comet(this.pageElements.banner,this.screenWidth,this.scrollHeight,this.screenWidth/2,100)
+        new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.scrollHeight,this.screenWidth/2,100)
         setInterval(()=>{
-            new Comet(this.pageElements.banner,this.screenWidth)
+            if(!this.comet){
+                new Comet(this.clearComet,this.pageElements.banner,this.screenWidth)
+            }
         }, Math.floor(Math.random()*10000)+5000)
     }
+    clearComet(){
+        this.comet = null;
+    }
     welcome(){
+        this.loadSkills();
+        this.loadProjects();
+        this.loadAboutMe();
         console.log("hi, welcome to my website!")
         console.log("thanks for checking out the console")
         console.log("(or did you just forget to close it?")
@@ -88,19 +98,21 @@ class App{
         }
     }
     loadImages(){
-        this.pageElements.stars.className = "banner-fade-in";
         this.skyController();
+        
         const backgroundImage = this.buildEl("img",null,null,null,'background');
         backgroundImage.src = "images/background.png";
         backgroundImage.style.opacity = "0%";
         backgroundImage.addEventListener('load',(e)=>{
             this.loaded();
+            //fake increased load time
+            // setTimeout(()=>{
+            //     this.loaded();
+            // },3000)
         })
-        // setTimeout(()=>{
-        //     this.loaded();
-        // },3000)
         this.pageElements['background'] = backgroundImage;
         this.pageElements.image_container.prepend(backgroundImage)
+        this.pageElements.main.style.display = "block";
     }
     loaded(){
         console.log('loaded')
@@ -110,12 +122,7 @@ class App{
             this.pageElements.banner.backgroundImage = "url('../images/banner.png')"
             this.pageElements.banner.className = "banner-fade-in";
             this.pageElements.banner.display = "block";
-            this.pageElements.main.style.display = "block";
-            this.loadSkills();
-            this.loadProjects();
-            this.loadAboutMe();
         },1000)
-        
     }
     loadProjects(){
         console.log('loading projects')
@@ -124,16 +131,18 @@ class App{
             const imgSrc = "./js/projects/"+p+"/images/"+p+"1.png"
             console.log('loading: ' + p)
             const el = this.buildEl("div", null, null, "project-icon");
-            el.data = i;
+            
             el.style.backgroundImage = "url("+imgSrc+")";
-            el.addEventListener("click", (e) => {
+            const cover = this.buildEl("button", el, null, "project-icon-cover");
+            cover.data = i;
+            cover.addEventListener("click", (e) => {
                 const icon = this.icons[this.currentProject];
                 icon.id = "";
                 console.log(e.target.data)
                 this.currentProject = e.target.data;
                 this.openProject()
             })
-            const cover = this.buildEl("div", el, null, "project-icon-cover");
+            
             this.pageElements.projectBrowseBar.appendChild(el)
             this.icons.push(el)
         }
@@ -144,12 +153,10 @@ class App{
         const projectData = this.projs[projectName];
         const icon = this.icons[this.currentProject];
         icon.id = "project-icon-selected";
-        //empty container
         const projectContainer = this.pageElements.projectContainer;
         while(projectContainer.firstChild){
             projectContainer.removeChild(projectContainer.firstChild)
         }
-        
         const el = this.buildEl("article", null, null, "project-full");
         const imageContainer = this.buildEl("div", el,null,"column")
         const mainImage = this.buildEl("img", imageContainer, null, "project-image-full");
@@ -262,10 +269,22 @@ class App{
             D.body.clientHeight, D.documentElement.clientHeight
         )
     }
+    shuffle(array) {
+        var currentIndex = array.length, temporaryValue, randomIndex;
+        while (0 !== currentIndex) {
+          randomIndex = Math.floor(Math.random() * currentIndex);
+          currentIndex -= 1;
+          temporaryValue = array[currentIndex];
+          array[currentIndex] = array[randomIndex];
+          array[randomIndex] = temporaryValue;
+        }
+        return array;
+    }
 }
 
 class Comet{
-    constructor(container,screenWidth,screenHeight,x,y){
+    constructor(clearComet,container,screenWidth,screenHeight,x,y){
+        this.clearComet = clearComet;
         this.container = container;
         this.lifespan = Math.floor(Math.random()*100);
         const d = Math.random();
@@ -294,6 +313,7 @@ class Comet{
             } else {
                 this.container.removeChild(this.el)
                 clearInterval(interval)
+                this.clearComet();
             }
         },10)
     }
