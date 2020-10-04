@@ -1,5 +1,5 @@
 const agency = {
-    name: "typewriter",
+    name: "agency",
     stack: ['React.js','Javascript','HTML5','CSS3'],
     type: 'Interactive Icon',
     keywords:['frontend','graphic design'],

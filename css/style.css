@@ -23,7 +23,8 @@ main{
 /* main logo only */
 h1{
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 7vw;
+    font-size: 12vh;
+    line-height: 10vh;
     margin: 0;
     text-align: right;
 }
@@ -51,6 +52,10 @@ nav{
     left: 0;
     opacity: 0;
     z-index: 100;
+}
+
+nav:nth-child(1){
+    padding-left: 2vw;
 }
 
 footer{
@@ -84,13 +89,27 @@ a{
     text-decoration: none;
     color: rgb(240, 87, 26);
 }
-a:visited { text-decoration: none; color:black; }
-a:hover { text-decoration: none; color:black; }
-a:focus { text-decoration: none; color:black; }
-a:hover, a:active { text-decoration: none; color:black }
+a:visited { text-decoration: none; color:rgb(240, 87, 26); }
+a:hover { text-decoration: none; color:rgb(240, 87, 26); }
+a:focus { text-decoration: none; color:rgb(240, 87, 26); }
+a:hover, a:active { text-decoration: none; color:rgb(240, 87, 26) }
+
+
 
 img{
     box-shadow: 0 0 5px dimgray, inset 0 0 5px black;
+}
+
+label{
+    font-weight: bold;
+    font-variant-caps: all-small-caps;
+}
+
+.info{
+    display: inline-block;
+    border-bottom: .5px solid black;
+    margin: .5vh 0;
+    padding: .5vh .2vw;
 }
 
 .logo-container{
@@ -100,7 +119,7 @@ img{
     z-index: 100;
     position: absolute;
     justify-content: center;
-    top: 20vh;
+    top: 10vh;
     left: 35vw;
 }
 
@@ -159,13 +178,14 @@ img{
 }
 
 .logo{
-    width: 30vw;
+    margin-bottom: 3vh;
+    opacity: .95;
 }
 
 .logo-small{
     display: inline-flex;
     flex-direction: column;
-    margin: 2vh;
+    margin: 2vh 4vh 2vh 0;
     float: right;
     font-family: Arial, Helvetica, sans-serif;
 }
@@ -174,7 +194,7 @@ img{
     background: transparent;
     border: none;
     color: #78bff5;
-    font-size: 2vw;
+    font-size: 3vh;
     margin-top: 5vh;
 }
 
@@ -187,8 +207,6 @@ img{
     display: inline-flex;
     flex-direction: column;
     align-content: center;
-    /* width: 30vw;
-    margin: 0 auto; */
 }
 
 .background-button{
@@ -248,17 +266,13 @@ img{
     margin: 1vw;
 }
 
-#projects{
-    background: black;
-}
-
 #project-browse-bar{
     display: inline-flex;
     overflow-x: scroll;
     width: 94vw;
-    margin-left: 3vw;
     border: 2px solid whitesmoke;
     background-color: #053245;
+    margin: 0 3vw;
 }
 
 .project-icon{
@@ -308,6 +322,7 @@ img{
 .project-image-full{
     margin:2vw;
     max-width: 30vw;
+    max-height: 30vw;
     height: 100%;
     border-radius: 2vw;
     border: .5px solid dimgray;
@@ -323,13 +338,15 @@ img{
 .next-button{
     width:100%;
     text-align: right;
-    color: rgb(120, 191, 245);
+    color: rgb(240, 87, 26);
+    font-variant-caps: all-small-caps;
+    font-size: 2.5vw;
 }
 
 .next-button:hover{
     width:100%;
     text-align: right;
-    color: rgb(240, 87, 26);
+    color: rgb(120, 191, 245);
     text-decoration: underline;
 }
 

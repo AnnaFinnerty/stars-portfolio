@@ -51,6 +51,9 @@ class App{
         document.addEventListener("scroll", () => {
             this.followScroll()
         })
+        this.pageElements.banner.addEventListener("click", (e) => {
+            this.comet = new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight,e.clientX,e.clientY)
+        })
         this.welcome();
         this.skyController();
     }
@@ -58,10 +61,10 @@ class App{
         this.pageElements.stars.className = "banner-fade-in";
         this.pageElements.stars.style.opacity = 1;
         this.pageElements.stars.className = "spin";
-        new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.scrollHeight,this.screenWidth/2,100)
+        new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight,this.screenWidth/2,100)
         setInterval(()=>{
             if(!this.comet){
-                new Comet(this.clearComet,this.pageElements.banner,this.screenWidth)
+                new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight)
             }
         }, Math.floor(Math.random()*10000)+5000)
     }
@@ -173,17 +176,22 @@ class App{
         })
         const title = this.buildEl("h2", infoCol, projectData.name);
         if(projectData.url){
-            const span = this.buildEl("span",infoCol, "Live: ")
-            const url = this.buildEl("a",span,projectData.url)
+            const d = this.buildEl("div",infoCol, null,"info")
+            const span = this.buildEl("label",d, "Live: ")
+            const url = this.buildEl("a",d,projectData.url)
             url.href = projectData.url
         }
         if(projectData.githubUrl){
-            const github = this.buildEl("span",infoCol, "Github: ")
-            const githubUrl = this.buildEl("a",github,projectData.githubUrl)
+            const d = this.buildEl("div",infoCol, null,"info")
+            const github = this.buildEl("label",d, "Github: ")
+            const githubUrl = this.buildEl("a",d,projectData.githubUrl)
             githubUrl.href = projectData.githubUrl
         }
-        this.buildEl("div",infoCol, "Description: " + projectData.description);
-        const skillsContainer = this.buildEl("div",infoCol, "Stack: ")
+        const description = this.buildEl("div",infoCol, null, "info");
+        this.buildEl("label",description, "Description: ");
+        this.buildEl("span",description, projectData.description);
+        const skillsContainer = this.buildEl("div",infoCol, null, "info");
+        const github = this.buildEl("label",skillsContainer, "Stack: ")
         for(let i = 0; i< this.projs[projectName]['stack'].length;i++){
             const text = i === 0 ? this.projs[projectName]['stack'][i] : " | " + this.projs[projectName]['stack'][i]; 
             this.buildEl("span",skillsContainer, text)
@@ -295,9 +303,8 @@ class Comet{
         this.targetY = screenHeight;
         this.el = document.createElement('div');
         this.el.className = "comet";
-        if(this.direction === -1){
-            this.el.style.transform = 'rotateY(180deg)';
-        }
+        const deg = d < .5 ? Math.floor(Math.random()*90): Math.floor(Math.random()*90) + 90;
+        this.el.style.transform = 'rotateY('+deg+'deg)';
         container.appendChild(this.el)
         this.fall();
     }
@@ -306,7 +313,7 @@ class Comet{
         let interval = setInterval(()=>{
             if(this.lifespan > 0){
                 this.x += 2*this.direction;
-                this.y += 1;
+                this.y += 2;
                 this.el.style.marginTop = this.y + "px";
                 this.el.style.marginLeft = this.x + "px";
                 this.lifespan -= 1;
