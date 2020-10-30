@@ -3,9 +3,9 @@ const bartleby = {
     stack: ['Javascript','Greasemonkey','Tampermonkey'],
     type: 'Productivity Tool',
     visibleKeywords:['frontend'],
-    githubUrl: 'github.com/AnnaFinnerty/bartleby',
+    githubUrl: 'https://github.com/AnnaFinnerty/bartleby',
     src: ['./img/ColorWheel1.png'],
-    description: 'A copy/save tool that transfers between tabs in the same browser windows.',
+    description: 'A copy/paste manager for Firefox and Chrome that transfers content between tabs.',
     caseStudy: [],
     live: true,
 }

@@ -5,14 +5,9 @@ body{
     margin: 0;
     padding: 0;
     overflow-x: hidden;
-    width: 100vw;
 }
 
-header, #image-layers,#image-container{
-    width: 100vw;
-    min-height: 100vh;
-    background: black;
-}
+
 
 main{
     display: none;
@@ -20,13 +15,18 @@ main{
     margin-top: -5vh;
 }
 
-/* main logo only */
-h1{
+
+h1,h2,h3,h4{
     font-family: Arial, Helvetica, sans-serif;
+}
+
+/* main logo */
+h1{
     font-size: 12vh;
     line-height: 10vh;
     margin: 0;
     text-align: right;
+    width: 100%;
 }
 
 h2{
@@ -34,12 +34,20 @@ h2{
     padding-left: 3vh;
     padding-bottom: 0;
     font-size: 3vw;
-    font-family: Arial, Helvetica, sans-serif;
+}
+
+h3{
+    border-bottom: .5px solid black;
+    padding-left: 3vh;
+    padding-bottom: 0;
+    font-size: 3vw;
+    margin: .5vh 0;
 }
 
 h4{
     margin: 0;
     color: whitesmoke;
+    text-align: right;
 }
 
 nav{
@@ -52,6 +60,8 @@ nav{
     left: 0;
     opacity: 0;
     z-index: 100;
+    background: rgb(30,30,30);
+    background: linear-gradient(rgb(15,15,15) 0%, rgb(20,20,20) 10%, rgb(20,20,20) 70%, rgb(15,15,15) 90%, transparent);
 }
 
 nav:nth-child(1){
@@ -94,8 +104,6 @@ a:hover { text-decoration: none; color:rgb(240, 87, 26); }
 a:focus { text-decoration: none; color:rgb(240, 87, 26); }
 a:hover, a:active { text-decoration: none; color:rgb(240, 87, 26) }
 
-
-
 img{
     box-shadow: 0 0 5px dimgray, inset 0 0 5px black;
 }
@@ -105,126 +113,97 @@ label{
     font-variant-caps: all-small-caps;
 }
 
-.info{
-    display: inline-block;
-    border-bottom: .5px solid black;
-    margin: .5vh 0;
-    padding: .5vh .2vw;
+.announcement{
+    margin-left: -30vw;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    background: red;
 }
 
-.logo-container{
+header{
     display: inline-flex;
-    width: 30vw;
     flex-direction: column;
-    z-index: 100;
-    position: absolute;
-    justify-content: center;
-    top: 10vh;
-    left: 35vw;
-}
-
-.image-layers{
-    background: black;
-    overflow: hidden;
-}
-
-#background{
-    height: 100vh;
-    width:100vw;
-    display: hidden;
-}
-
-#stars{
-    height: 100vh;
-    width:100vw;
-}
-
-#banner{
-    position: relative;
-    margin-top: -100.5vh;
-    z-index: 1;
-    height: 100vh;
-    width:100vw;
-    background-image:url('../images/banner.png');
-    background-position: bottom;
-    background-size: cover;
-    opacity: 0;
-}
-
-#stars-container{
+    align-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
-    margin-top: -100vh;
-}
-
-.comet{
+    padding-top: 10vh;
+    z-index: 100;
     position: absolute;
     top: 0;
     left: 0;
-    width: 5vh;
-    height: 5vh;
-    z-index: 100;
-    background: url('../images/comet.png') 0 0 repeat;
-    background-repeat: no-repeat;
-    transform:rotate(-15deg);
-}
-
-#stars{
-    width: 100vw;
-    height: 100vh;
-    margin-top: -100vh;
-    background: url('../images/stars.png') 0 0 repeat;
-    opacity: 0;
 }
 
 .logo{
     margin-bottom: 3vh;
     opacity: .95;
+    width: 40vh;
+    /* border-right: .1px solid whitesmoke; */
 }
 
 .logo-small{
     display: inline-flex;
     flex-direction: column;
+    align-items: right;
     margin: 2vh 4vh 2vh 0;
+    padding: 0 10px;
     float: right;
     font-family: Arial, Helvetica, sans-serif;
+    border: .5px solid whitesmoke;
 }
 
 .nav-button{
     background: transparent;
     border: none;
-    color: #78bff5;
+    color: rgb(240, 87, 26);
     font-size: 3vh;
     margin-top: 5vh;
 }
 
 .nav-button:hover{
     text-decoration: underline;
-    color: rgb(240, 87, 26);
+    color: #78bff5;
 }
 
 .background-button-container{
     display: inline-flex;
     flex-direction: column;
     align-content: center;
+    align-items: flex-end;
+    width: 40vh;
 }
 
 .background-button{
-    margin: 2% 20%;
-    width: 80%;
-    color:  rgb(120, 191, 245);
-    background-color: rgba(120, 191, 245,.3);
-    padding: 1vh;
-    border-radius: .5vw;
-    border: 2px solid #053245;
-    font-size: 3vh;
-    box-shadow: 0 0 5px rgb(120, 191, 245) inset;
-}
-
-.background-button:hover{
+    margin: 2px 0;
+    width: 33vh;
     color: #053245;
     background-color: rgba(120, 191, 245,.6);
     border: 2px solid rgba(120, 191, 245,.8);
+    padding: 1vh;
+    border-radius: .5vw;
+    font-size: 3vh;
+    box-shadow: 0 0 5px rgb(120, 191, 245) inset;
+    text-align: center;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.background-button:visited{
+    color: #053245;
+}
+
+.background-button:hover{
+    color:  rgb(120, 191, 245);
+    background-color: rgba(120, 191, 245,.3);
+    border: 2px solid #053245;
+}
+
+.intro{
+    padding: 10vh 20vw;
+    text-align: center;
+    font-family: Helvetica, sans-serif;
+    font-size: 4vw;
+    background: linear-gradient(black 75%,transparent 100%);
+    margin-top: -2vh;
 }
 
 #skillset{
@@ -234,7 +213,6 @@ label{
 #skillset-selector{
     border: .5px solid rgb(25, 25, 25);
     width: 100vw;
-    background-color: rgb(17, 17, 17);
     box-shadow: 5px 5px 20px black inset;
     display: inline-flex;
     flex-direction: row;
@@ -243,14 +221,22 @@ label{
 }
 
 .skillset-selector-button{
-    width: 80%;
+    width: 15vw;
     color:  rgb(120, 191, 245);
     background-color: rgba(120, 191, 245,.3);
     padding: 1vh;
+    margin: 0 .2vw;
     border-radius: .5vw;
     border: 2px solid #053245;
     font-size: 3vh;
     box-shadow: 0 0 5px rgb(120, 191, 245) inset;
+    cursor: pointer;
+}
+
+.skillset-selector-button:hover{
+    color: #053245;
+    background-color: rgba(120, 191, 245,.6);
+    border: 2px solid rgba(120, 191, 245,.8);
 }
 
 #skillset-container{
@@ -259,6 +245,8 @@ label{
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 5vw;
+    height: 20vh;
+    overflow-x: scroll;
 }
 
 .skill{
@@ -284,6 +272,9 @@ label{
     border: .5px solid black;
     border-radius: 2vw;
     background-size: cover;
+    position: relative;
+    top: 0;
+    left: 0;
 }
 
 .project-icon:hover{
@@ -303,24 +294,25 @@ label{
     width:11vw;
     height: 11vw;
     border-radius: 2vw;
-    background: radial-gradient(rgba(0,0,0,.01),rgba(0,0,0,.1) 40%,rgba(0,0,0,.3) 80%);
+    background: radial-gradient(rgba(0,0,0,.01),rgba(0,0,0,.1) 60%,rgba(0,0,0,.3) 80%);
     box-shadow: 1px 1px 5px black inset;
     z-index: 1;
     padding: 0;
     margin:0;
     border: none;
+    cursor: pointer;
 }
 
 .project-icon-cover:hover{
     width:11vw;
     height: 11vw;
-    background: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,.01) 80%,rgba(0,0,0,.2) 100%);
+    background: radial-gradient(rgba(0,0,0,0),rgba(0,0,0,.01) 60%,rgba(0,0,0,.2) 80%);
     border-radius: 2vw;
     z-index: 1;
 }
 
 .project-image-full{
-    margin:2vw;
+    margin:10px;
     max-width: 30vw;
     max-height: 30vw;
     height: 100%;
@@ -331,16 +323,18 @@ label{
 .project-full{
     display: inline-flex;
     justify-content: center;
-    margin: 2vh auto;
-    overflow-x: scroll;
-    height: 45vh;
+    margin: 2vh 2vw;
+    padding: 1vw 5vw 5vw 1vw;
+    width: 90vw;
 }
+
 .next-button{
     width:100%;
     text-align: right;
     color: rgb(240, 87, 26);
     font-variant-caps: all-small-caps;
-    font-size: 2.5vw;
+    font-size: 3vw;
+    cursor: pointer;
 }
 
 .next-button:hover{
@@ -351,17 +345,32 @@ label{
 }
 
 #headshot{
-    width:20vw;
-    height: 20vw;
-    border-radius: 100vw;
-    float: right;
+    width:30vh;
+    height: 30vh;
+    border-radius: 100;
     border-radius: 5vw;
     border: .5px solid dimgray;
-    margin: auto 0;
+    margin: 0 0 1vw 1vw;
+    float: right;
+}
+
+#about_me article{
+    min-height: 32vh;
+}
+.info{
+    display: inline-block;
+    border-bottom: .5px solid black;
+    margin: .5vh 0;
+    padding: .5vh .2vw;
+    width:50vw;
 }
 
 .para{
-    margin: 1vh;
+    margin-top: 1vh;
+}
+
+.teaser{
+    cursor: pointer;
 }
 
 .inline{
@@ -373,6 +382,10 @@ label{
     height: 100%;
     display: inline-flex;
     flex-direction: column;
+}
+
+.scrollx{
+    overflow-x: scroll;
 }
 
 .fade-in{

@@ -1,0 +1,54 @@
+#image-container{
+    width: 100vw;
+    height: 80vh;
+}
+
+.image-layers{
+    background: black;
+    overflow: hidden;
+}
+
+#background{
+    height: 100vh;
+    width:100vw;
+    display: hidden;
+    box-shadow: none;
+}
+
+.comet{
+    position: absolute;
+    top: -100px;
+    left: 0;
+    width: 5vh;
+    height: 5vh;
+    z-index: 100;
+    background: url('../images/comet.png') 0 0 repeat;
+    background-repeat: no-repeat;
+    transform:rotate(-15deg);
+}
+
+#stars{
+    width: 100vw;
+    height: 100vh;
+    margin-top: -100vh;
+    background: url('../images/stars.png') 0 0 repeat;
+    opacity: 0;
+}
+
+#banner{
+    position: relative;
+    margin-top: -100.5vh;
+    z-index: 1;
+    height: 100vh;
+    width:100vw;
+    background-image:url('../images/banner.png');
+    background-position: bottom;
+    background-size: cover;
+    opacity: 0;
+}
+
+#stars-container{
+    width: 100vw;
+    height: 100vh;
+    margin-top: -100vh;
+}

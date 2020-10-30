@@ -4,73 +4,74 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="initial-scale=0.66, user-scalable=no">
+    <link href="css/stars.css" rel="stylesheet" type="text/css">
     <link href="css/style.css" rel="stylesheet" type="text/css">
     <link href="css/media.css" rel="stylesheet" type="text/css">
     <link rel="apple-touch-icon" sizes="180x180" href="images/favicon/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon/favicon-16x16.png">
-    <link rel="manifest" href="/site.webmanifest">
+    <link href="https://fonts.googleapis.com/css2?family=Yellowtail&display=swap" rel="stylesheet">
     <title>annie laurie codes</title>
 </head>
 <body>
-        <nav>
-            <a href="#skillset">
-                <button class="nav-button">skillset</button>
+    <nav>
+        <a href="#projects">
+            <button class="nav-button">projects</button>
+        </a>
+        <a href="#skillset">
+            <button class="nav-button">skillset</button>
+        </a>
+        <a href="#about_me">
+            <button class="nav-button">about me</button>
+        </a>
+        <a href="#contact">
+            <button class="nav-button">contact</button>
+        </a>
+        <div class="logo-small">
+            <a href="#background">
+                <h4 id="annie">annie</h4>
+                <h4 id="laurie">laurie</h4>
+                <h4 id="codes">codes</h4>
             </a>
-            <a href="#projects">
-                <button class="nav-button">projects</button>
-            </a>
-            <a href="#about_me">
-                <button class="nav-button">about me</button>
-            </a>
-            <a href="#contact">
-                <button class="nav-button">contact</button>
-            </a>
-            <div class="logo-small">
-                <a href="#background">
-                    <h4 id="annie">annie</h4>
-                    <h4 id="laurie">laurie</h4>
-                    <h4 id="codes">codes</h4>
-                </a>
+        </div>
+    </nav>
+    <div class="image-container">
+        <div class="image-layers">
+            <div id="star-container">
+                <div id="stars"></div>
             </div>
-        </nav>
+        </div>
+        <div id="banner"></div>
+    </div>
+    <!-- <div role="banner" aria-roledescription="banner" class="announcement">click to make <br> a comet</div> -->
     <header>
-        <div class="image-container">
-            <div class="image-layers">
-                <div id="star-container">
-                    <div id="stars"></div>
-                </div>
-                <div id="banner"></div>
-                <div class="logo-container">
-                    <div class="logo">
-                        <h1 id="annie">annie</h1>
-                        <h1 id="laurie">laurie</h1>
-                        <h1 id="codes">codes</h1>
-                    </div>
-                    <div class="background-button-container">
-                        <a href="https://github.com/AnnaFinnerty" target="_blank">
-                            <button class="background-button">github</button>
-                        </a>
-                        <a href="#projects">
-                            <button class="background-button">projects</button>
-                        </a>
-                        <a href="#skillset">
-                            <button class="background-button">skillset</button>
-                        </a>
-                        <a href="#about_me">
-                            <button class="background-button">about me</button>
-                        </a>
-                        <a href="#contact">
-                            <button class="background-button">contact</button>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
+        <div class="logo">
+            <h1 id="annie">annie</h1>
+            <h1 id="laurie">laurie</h1>
+            <h1 id="codes">codes</h1>
+        </div>
+        <div class="background-button-container">
+            <a href="#projects" class="background-button">
+                projects
+            </a>
+            <a href="#skillset" class="background-button">
+                skillset
+            </a>
+            <a href="#about_me" class="background-button">
+                about me
+            </a>
+            <a href="#contact" class="background-button">
+                contact
+            </a>
+            <a href="https://github.com/AnnaFinnerty" target="_blank" class="background-button">
+                github
+            </a>
         </div>
     </header>
     <main>
-        <div class="intro"></div>
+        <div class="intro">
+            A software engineer based in Denver, Colorado who likes tackling complex problems on the front and back end. Learn more about my projects below.
+        </div>
         <section id="projects">
             <h2>projects</h2>
             <div id="project-browse-bar"></div>
@@ -79,7 +80,7 @@
         <section id="skillset">
             <h2>skillset</h2>
             <div class="column">
-                <!-- <div id="skillset-selector"></div> -->
+                <div id="skillset-selector"></div>
                 <div id="skillset-container"></div>
             </div>
             
@@ -87,11 +88,11 @@
         <section id="about_me">
             <h2>about me</h2>
             <article id="about-me-container">
-                <img id="headshot" src="images/headshot.jpg">
+                <img id="headshot" src="images/headshot.jpg" alt="my picture">
             </article>
         </section>
-        <h2 id="contact">contact</h2>
         <section >
+            <h2 id="contact">contact</h2>
             <article>
                 Feel free to reach out at <a href="mailto:algfinnerty@gmail.com">algfinnerty@gmail.com</a> if you have a project you'd like to talk through with me, or follow me on <a href="https://www.linkedin.com/in/annafinnerty/" target="_blank">linkedin</a> or <a href="https://github.com/AnnaFinnerty" target="_blank">github</a> for the latest updates on my projects! 
             </article>
@@ -100,7 +101,7 @@
             &#169 2020 annie laurie finnerty
         </footer>
     </main>
-    
+    <script src="js/projects/stillbreaking/description.js"></script>
     <script src="js/projects/habit/description.js"></script>
     <script src="js/projects/bartleby/description.js"></script>
     <script src="js/projects/agency/description.js"></script>
@@ -110,6 +111,7 @@
     <script src="js/projects/citadels/description.js"></script>
     <script src="js/projects/colorwheel/description.js"></script>
     <script src="js/projects/cloudchaos/description.js"></script>
+    <script src="js/focusdetect.js"></script>
     <script src="js/about.js"></script>
     <script src="js/skills.js"></script>
     <script src="js/app.js"></script>

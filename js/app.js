@@ -1,5 +1,3 @@
-
-
 class App{
     constructor(){
         this.userScreenMobile = window.innerHeight > window.innerWidth;
@@ -17,8 +15,9 @@ class App{
             "habit": habit,
             "citadels": citadels,
             "colorwheel": colorwheel,
-            
+            "stillbreaking": stillbreaking,
         }
+        this.pageVisible = "visible"
         this.projects = Object.keys(this.projs)
         this.icons = []
         console.log(this.projs)
@@ -27,6 +26,7 @@ class App{
         this.skills = skills;
         this.comet = null;
         this.messageQueue = [];
+        this.onFocusChange = this.onFocusChange.bind(this);
         this.start();
     }
     start(){
@@ -46,14 +46,11 @@ class App{
             "stars": document.querySelector('#stars')
         }
         console.log(this.pageElements)
-        
         this.loadImages();
-        document.addEventListener("scroll", () => {
-            this.followScroll()
+        document.querySelector('header').addEventListener("click", (e) => {
+            this.comet = new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight,e.clientX,e.clientY+100)
         })
-        this.pageElements.banner.addEventListener("click", (e) => {
-            this.comet = new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight,e.clientX,e.clientY)
-        })
+        detectfocus(this.onFocusChange)
         this.welcome();
         this.skyController();
     }
@@ -61,9 +58,9 @@ class App{
         this.pageElements.stars.className = "banner-fade-in";
         this.pageElements.stars.style.opacity = 1;
         this.pageElements.stars.className = "spin";
-        new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight,this.screenWidth/2,100)
+        new Comet(this.clearComet,this.pageElements.stars,this.screenWidth,this.screenHeight,this.screenWidth/4,200)
         setInterval(()=>{
-            if(!this.comet){
+            if(!this.comet && this.pageVisible === "visible"){
                 new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight)
             }
         }, Math.floor(Math.random()*10000)+5000)
@@ -91,31 +88,35 @@ class App{
         const scrollTop = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
         if(scrollTop > window.innerHeight*.9){
             this.pageElements.nav.style.opacity = 1;
-            this.pageElements.nav.style.backgroundColor = "black"
         } else {
-            const o = 1-(Math.abs(scrollTop - this.screenHeight)/1000 + .3);
-            this.pageElements.background.style.opacity = 1 - (o);
-            this.pageElements.nav.style.opacity = o;
-            this.pageElements.nav.style.backgroundImage = "none";
-            this.pageElements.nav.style.backgroundColor = "black"
+            this.pageElements.nav.style.opacity = 1-(Math.abs(scrollTop - this.screenHeight)/1000 + .3);
         }
     }
+    onFocusChange(newFocusState){
+        this.pageVisible = newFocusState;
+    }
     loadImages(){
+        document.addEventListener("scroll", () => {
+            this.followScroll()
+        })
         this.skyController();
-        
         const backgroundImage = this.buildEl("img",null,null,null,'background');
         backgroundImage.src = "images/background.png";
         backgroundImage.style.opacity = "0%";
         backgroundImage.addEventListener('load',(e)=>{
+            this.pageElements['background'] = backgroundImage;
+            this.pageElements.image_container.prepend(backgroundImage)
+            this.pageElements.main.style.display = "block";
             this.loaded();
+
             //fake increased load time
-            // setTimeout(()=>{
-            //     this.loaded();
-            // },3000)
+            setTimeout(()=>{
+                // this.pageElements['background'] = backgroundImage;
+                // this.pageElements.image_container.prepend(backgroundImage)
+                // this.pageElements.main.style.display = "block";
+                // this.loaded();
+            },3000)
         })
-        this.pageElements['background'] = backgroundImage;
-        this.pageElements.image_container.prepend(backgroundImage)
-        this.pageElements.main.style.display = "block";
     }
     loaded(){
         console.log('loaded')
@@ -125,7 +126,7 @@ class App{
             this.pageElements.banner.backgroundImage = "url('../images/banner.png')"
             this.pageElements.banner.className = "banner-fade-in";
             this.pageElements.banner.display = "block";
-        },1000)
+        },500)
     }
     loadProjects(){
         console.log('loading projects')
@@ -134,18 +135,13 @@ class App{
             const imgSrc = "./js/projects/"+p+"/images/"+p+"1.png"
             console.log('loading: ' + p)
             const el = this.buildEl("div", null, null, "project-icon");
-            
             el.style.backgroundImage = "url("+imgSrc+")";
             const cover = this.buildEl("button", el, null, "project-icon-cover");
+            cover.setAttribute("aria-label","view project " + p)
             cover.data = i;
             cover.addEventListener("click", (e) => {
-                const icon = this.icons[this.currentProject];
-                icon.id = "";
-                console.log(e.target.data)
-                this.currentProject = e.target.data;
-                this.openProject()
+                this.nextProject(e.target.data);
             })
-            
             this.pageElements.projectBrowseBar.appendChild(el)
             this.icons.push(el)
         }
@@ -157,9 +153,7 @@ class App{
         const icon = this.icons[this.currentProject];
         icon.id = "project-icon-selected";
         const projectContainer = this.pageElements.projectContainer;
-        while(projectContainer.firstChild){
-            projectContainer.removeChild(projectContainer.firstChild)
-        }
+        this.emptyContainer(projectContainer)
         const el = this.buildEl("article", null, null, "project-full");
         const imageContainer = this.buildEl("div", el,null,"column")
         const mainImage = this.buildEl("img", imageContainer, null, "project-image-full");
@@ -168,83 +162,122 @@ class App{
         const next = this.buildEl("h4", infoCol, "next>","next-button");
         next.addEventListener("click",()=>{
             if(this.currentProject < this.projects.length-1){
-                this.currentProject +=1
+                this.nextProject(this.currentProject+1)
             } else {
-                this.currentProject = 0;
+                this.nextProject(0)
             }
             this.openProject();
         })
-        const title = this.buildEl("h2", infoCol, projectData.name);
+        const title = this.buildEl("h3", infoCol, projectData.name);
         if(projectData.url){
             const d = this.buildEl("div",infoCol, null,"info")
             const span = this.buildEl("label",d, "Live: ")
             const url = this.buildEl("a",d,projectData.url)
-            url.href = projectData.url
+            url.href = projectData.url;
+            url.target = "_blank";
         }
         if(projectData.githubUrl){
             const d = this.buildEl("div",infoCol, null,"info")
             const github = this.buildEl("label",d, "Github: ")
             const githubUrl = this.buildEl("a",d,projectData.githubUrl)
-            githubUrl.href = projectData.githubUrl
+            githubUrl.href = projectData.githubUrl;
+            githubUrl.target = "_blank";
+        }
+        if(projectData.collaborators){
+            const c = this.buildEl("div",infoCol, null,"info")
+            this.buildEl("label",c, "Collaborators: ");
+            for(let i = 0; i< projectData.collaborators.length;i++){
+                const text = i === 0 ? projectData.collaborators[i]['name'] : " | " + projectData.collaborators[i]['name']; 
+                this.buildEl("span",c, text + " | ")
+                const url = this.buildEl("a",c,projectData.collaborators[i]['url'])
+                url.href = projectData.collaborators[i]['url'];
+                url.target = "_blank";
+            }
         }
         const description = this.buildEl("div",infoCol, null, "info");
         this.buildEl("label",description, "Description: ");
         this.buildEl("span",description, projectData.description);
         const skillsContainer = this.buildEl("div",infoCol, null, "info");
-        const github = this.buildEl("label",skillsContainer, "Stack: ")
+        this.buildEl("label",skillsContainer, "Stack: ")
         for(let i = 0; i< this.projs[projectName]['stack'].length;i++){
             const text = i === 0 ? this.projs[projectName]['stack'][i] : " | " + this.projs[projectName]['stack'][i]; 
             this.buildEl("span",skillsContainer, text)
         }   
-        if(projectData.collaborators){
-            //MTC
-        }
         if(projectData.caseStudy.length){
             this.buildEl("h3", infoCol, "Case Study");
-            for(let i = 0; i < projectData.caseStudy.length; i++){
-                this.buildEl('div',infoCol,projectData.caseStudy[i],'para')
-            }
+            const teaser = this.buildEl('div',infoCol,projectData.caseStudy[0].slice(0,50),'para')
+            teaser.addEventListener("click",()=>{
+                infoCol.removeChild(teaser)
+                this.openCaseStudy(infoCol, projectData.caseStudy)
+            })
+            this.buildEl("h4", teaser, "read more...","next-button");
         }
         projectContainer.appendChild(el)
     }
+    openCaseStudy(infoCol,caseStudy){
+        for(let i = 0; i < caseStudy.length; i++){
+            this.buildEl('div',infoCol,caseStudy[i],'para')
+        }
+        const next = this.buildEl("h4", infoCol, "next>","next-button");
+        next.addEventListener("click",()=>{
+            if(this.currentProject < this.projects.length-1){
+                this.nextProject(this.currentProject+1)
+            } else {
+                this.nextProject(0)
+            }
+            this.openProject();
+        })
+        this.pageElements.projectContainer.firstChild.style.height = "auto";
+        this.pageElements.projectContainer.firstChild.style.paddingBottom = "5vh";
+        this.pageElements.projectContainer.addEventListener("mouseleave",()=>{
+            this.openProject()
+        })
+    }
     loadSkills(){
         console.log('adding skills')
-        const all = [];
-        this.skillsets = Object.keys(skills);
-        this.skillsets.unshift('all')
-        for(let i = 0; i< this.skillsets.length; i++){
-            const el = this.buildEl('button',this.pageElements.skillsetSelector,this.skillsets[i],"skillset-selector-button")
-            el.data = this.skillsets[i];
+        const all_skills = [];
+        for(let i in this.skills){
+            const el = this.buildEl('button',this.pageElements.skillsetSelector,i,"skillset-selector-button")
+            el.data = i;
             el.addEventListener('click',(e)=>{
                 console.log(e.target.data)
+                this.updateSkills(e.target.data)
             })
-        }
-        for(let i in this.skills){
-            console.log("skillset: " + i);
             for(let j = 0; j < this.skills[i].length; j++){
                 const skill = this.skills[i][j];
-                console.log(skill)
-                all.push(skill)
+                console.log(j % fonts[i].length)
+                const font = fonts[i][j % fonts[i].length]
+                this.skills[i][j] = {skill:skill,font: font};
+                all_skills.push({skill:skill,font: font});
             }
         }
-        this.skills['all'] = all;
-        for(let j = 0; j < all.length; j++){
-            const skill = all[j];
-            const el = this.buildEl('div',this.pageElements.skillset,skill,"skill")
-            el.data = skill;
-            el.addEventListener('click',(e)=>{
-                console.log(e.target.data)
-            })
-        }
+        this.skills['all'] = all_skills;
+        this.updateSkills('all')
     }
-    updateSkills(){
-        
+    updateSkills(newSkillset){
+        this.emptyContainer(this.pageElements.skillset)
+        for(let i in this.skills[newSkillset]){
+            const skill = this.skills[newSkillset][i];
+            const el = this.buildEl('div',this.pageElements.skillset,skill.skill,"skill")
+            el.style.fontFamily = skill.font
+        }
     }
     loadAboutMe(){
         console.log('about me!')
         for(let i = 0; i < about.length; i++){
             const el = this.buildEl('div', this.pageElements.aboutMe,about[i],'para');
             console.log(this.pageElements.aboutMe,about[i])
+        }
+    }
+    nextProject(nextProject){
+        const icon = this.icons[this.currentProject];
+              icon.id = "";
+        this.currentProject = nextProject;
+        this.openProject()
+    }
+    emptyContainer(container){
+        while(container.firstChild){
+            container.removeChild(container.firstChild)
         }
     }
     buildEl(type,container,text,className,id){
@@ -263,12 +296,12 @@ class App{
         }
         return el
     }
-    iterateFunc(arr,func){
-        for(let i = 0; i < arr.length; i++){
-            func(arr[i])
-        }
-        return arr
-    }
+    // iterateFunc(arr,func){
+    //     for(let i = 0; i < arr.length; i++){
+    //         func(arr[i])
+    //     }
+    //     return arr
+    // }
     getDocHeight() {
         var D = document;
         return Math.max(
@@ -303,7 +336,7 @@ class Comet{
         this.targetY = screenHeight;
         this.el = document.createElement('div');
         this.el.className = "comet";
-        const deg = d < .5 ? Math.floor(Math.random()*90): Math.floor(Math.random()*90) + 90;
+        const deg = d < .5 ? Math.floor(Math.random()*45) : Math.floor(Math.random()*45) + 135;
         this.el.style.transform = 'rotateY('+deg+'deg)';
         container.appendChild(this.el)
         this.fall();
