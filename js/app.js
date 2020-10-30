@@ -5,18 +5,7 @@ class App{
         this.scrollHeight = this.getDocHeight();
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
-        this.projs = {
-            "cloudchaos":cloudchaos,
-            "higgins": higgins,
-            "bartleby": bartleby,
-            "agency":agency,
-            "typewriter":typewriter,
-            "stylish":stylish,
-            "habit": habit,
-            "citadels": citadels,
-            "colorwheel": colorwheel,
-            "stillbreaking": stillbreaking,
-        }
+        this.projs = projects;
         this.pageVisible = "visible"
         this.projects = Object.keys(this.projs)
         this.icons = []
@@ -132,7 +121,7 @@ class App{
         console.log('loading projects')
         for(let i = 0; i < this.projects.length; i ++){
             const p = this.projects[i];
-            const imgSrc = "./js/projects/"+p+"/images/"+p+"1.png"
+            const imgSrc = "./images/project_images/"+p+"1.png";
             console.log('loading: ' + p)
             const el = this.buildEl("div", null, null, "project-icon");
             el.style.backgroundImage = "url("+imgSrc+")";
@@ -157,7 +146,7 @@ class App{
         const el = this.buildEl("article", null, null, "project-full");
         const imageContainer = this.buildEl("div", el,null,"column")
         const mainImage = this.buildEl("img", imageContainer, null, "project-image-full");
-        mainImage.src = "./js/projects/"+projectName+"/images/"+projectName+"1.png";
+        mainImage.src = "./images/project_images/"+projectName+"1.png";
         const infoCol = this.buildEl("div",el,null,"column");
         const next = this.buildEl("h4", infoCol, "next>","next-button");
         next.addEventListener("click",()=>{
