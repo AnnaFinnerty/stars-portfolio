@@ -6,7 +6,7 @@ class App{
         this.screenWidth = window.innerWidth;
         this.screenHeight = window.innerHeight;
         this.projs = projects;
-        this.pageVisible = "visible"
+        // this.pageVisible = "visible"
         this.projects = Object.keys(this.projs)
         this.icons = []
         console.log(this.projs)
@@ -15,18 +15,13 @@ class App{
         this.skills = skills;
         this.comet = null;
         this.messageQueue = [];
-        this.onFocusChange = this.onFocusChange.bind(this);
+        // this.onFocusChange = this.onFocusChange.bind(this);
         this.start();
     }
     start(){
-        console.log(this)
         this.pageElements = {
             "nav": document.querySelector('nav'),
-            "image_container": document.querySelector('.image-layers'),
             "main": document.querySelector('main'),
-            "background": document.querySelector('#background'),
-            "banner": document.querySelector('#banner'),
-            "stars": document.querySelector('#stars'),
             "skillset": document.querySelector('#skillset-container'),
             "skillsetSelector": document.querySelector('#skillset-selector'),
             "projectContainer": document.querySelector('#project-container'),
@@ -35,27 +30,16 @@ class App{
             "stars": document.querySelector('#stars')
         }
         console.log(this.pageElements)
-        this.loadImages();
-        document.querySelector('header').addEventListener("click", (e) => {
-            this.comet = new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight,e.clientX,e.clientY+100)
-        })
-        detectfocus(this.onFocusChange)
         this.welcome();
-        this.skyController();
+        // => (surfaceToClickOnQuerySelector,onLoadCallack)
+        new SkyController("header",() => this.onLoad());
+        document.addEventListener("scroll", () => {
+            this.followScroll()
+        })
     }
-    skyController(){
-        this.pageElements.stars.className = "banner-fade-in";
-        this.pageElements.stars.style.opacity = 1;
-        this.pageElements.stars.className = "spin";
-        new Comet(this.clearComet,this.pageElements.stars,this.screenWidth,this.screenHeight,this.screenWidth/4,200)
-        setInterval(()=>{
-            if(!this.comet && this.pageVisible === "visible"){
-                new Comet(this.clearComet,this.pageElements.banner,this.screenWidth,this.screenHeight)
-            }
-        }, Math.floor(Math.random()*10000)+5000)
-    }
-    clearComet(){
-        this.comet = null;
+    onLoad(){
+        console.log('loaded in app')
+        this.pageElements.main.style.display = "block";
     }
     welcome(){
         this.loadSkills();
@@ -80,42 +64,6 @@ class App{
         } else {
             this.pageElements.nav.style.opacity = 1-(Math.abs(scrollTop - this.screenHeight)/1000 + .3);
         }
-    }
-    onFocusChange(newFocusState){
-        this.pageVisible = newFocusState;
-    }
-    loadImages(){
-        document.addEventListener("scroll", () => {
-            this.followScroll()
-        })
-        this.skyController();
-        const backgroundImage = this.buildEl("img",null,null,null,'background');
-        backgroundImage.src = "images/background.png";
-        backgroundImage.style.opacity = "0%";
-        backgroundImage.addEventListener('load',(e)=>{
-            this.pageElements['background'] = backgroundImage;
-            this.pageElements.image_container.prepend(backgroundImage)
-            this.pageElements.main.style.display = "block";
-            this.loaded();
-
-            //fake increased load time
-            setTimeout(()=>{
-                // this.pageElements['background'] = backgroundImage;
-                // this.pageElements.image_container.prepend(backgroundImage)
-                // this.pageElements.main.style.display = "block";
-                // this.loaded();
-            },3000)
-        })
-    }
-    loaded(){
-        console.log('loaded')
-        this.pageElements.background.className = "background-fade-in";
-        this.pageElements.background.display = "block";
-        setTimeout(()=>{
-            this.pageElements.banner.backgroundImage = "url('../images/banner.png')"
-            this.pageElements.banner.className = "banner-fade-in";
-            this.pageElements.banner.display = "block";
-        },500)
     }
     loadProjects(){
         console.log('loading projects')
@@ -285,12 +233,6 @@ class App{
         }
         return el
     }
-    // iterateFunc(arr,func){
-    //     for(let i = 0; i < arr.length; i++){
-    //         func(arr[i])
-    //     }
-    //     return arr
-    // }
     getDocHeight() {
         var D = document;
         return Math.max(
@@ -299,53 +241,17 @@ class App{
             D.body.clientHeight, D.documentElement.clientHeight
         )
     }
-    shuffle(array) {
-        var currentIndex = array.length, temporaryValue, randomIndex;
-        while (0 !== currentIndex) {
-          randomIndex = Math.floor(Math.random() * currentIndex);
-          currentIndex -= 1;
-          temporaryValue = array[currentIndex];
-          array[currentIndex] = array[randomIndex];
-          array[randomIndex] = temporaryValue;
-        }
-        return array;
-    }
-}
-
-class Comet{
-    constructor(clearComet,container,screenWidth,screenHeight,x,y){
-        this.clearComet = clearComet;
-        this.container = container;
-        this.lifespan = Math.floor(Math.random()*100);
-        const d = Math.random();
-        this.direction = d < .5 ? 1 : -1;
-        this.x = x ? x : Math.floor(Math.random()*screenWidth);
-        this.y = y ? y : Math.floor(Math.random()*(screenHeight/2));
-        this.targetX = Math.floor(Math.random()*screenWidth);
-        this.targetY = screenHeight;
-        this.el = document.createElement('div');
-        this.el.className = "comet";
-        const deg = d < .5 ? Math.floor(Math.random()*45) : Math.floor(Math.random()*45) + 135;
-        this.el.style.transform = 'rotateY('+deg+'deg)';
-        container.appendChild(this.el)
-        this.fall();
-    }
-    fall(){
-        console.log("comet falling!")
-        let interval = setInterval(()=>{
-            if(this.lifespan > 0){
-                this.x += 2*this.direction;
-                this.y += 2;
-                this.el.style.marginTop = this.y + "px";
-                this.el.style.marginLeft = this.x + "px";
-                this.lifespan -= 1;
-            } else {
-                this.container.removeChild(this.el)
-                clearInterval(interval)
-                this.clearComet();
-            }
-        },10)
-    }
+    // shuffle(array) {
+    //     var currentIndex = array.length, temporaryValue, randomIndex;
+    //     while (0 !== currentIndex) {
+    //       randomIndex = Math.floor(Math.random() * currentIndex);
+    //       currentIndex -= 1;
+    //       temporaryValue = array[currentIndex];
+    //       array[currentIndex] = array[randomIndex];
+    //       array[randomIndex] = temporaryValue;
+    //     }
+    //     return array;
+    // }
 }
 
 window.addEventListener('load', (event) => {
